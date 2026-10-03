@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#FFF8F2">
+<title>Mis Apps</title>
+<link rel="icon" type="image/png" href="libro-aventuras/icon-192.png">
+<style>
+:root{--bg:#FFF8F2;--ink:#2B2233;--muted:#6B6175;--card:#FFFFFF;--line:#EBDDE5}
+@media (prefers-color-scheme:dark){:root{--bg:#15121A;--ink:#F6EEF8;--muted:#B9ADC3;--card:#201B28;--line:#33293D}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:max(22px,env(safe-area-inset-top)) 16px max(30px,env(safe-area-inset-bottom))}
+main{max-width:520px;margin:0 auto}
+h1{font-size:32px;line-height:1.1;margin:10px 0 4px}
+.sub{color:var(--muted);margin:0 0 22px;font-size:17px}
+.app{display:flex;gap:14px;align-items:center;text-decoration:none;color:#fff;border-radius:22px;padding:16px;margin:0 0 14px;box-shadow:0 8px 22px rgba(0,0,0,.16);-webkit-tap-highlight-color:transparent}
+.app:active{transform:scale(.985)}
+.app img{width:68px;height:68px;border-radius:18px;flex:none;background:rgba(255,255,255,.18)}
+.app b{display:block;font-size:20px;line-height:1.2}
+.app span{display:block;margin-top:3px;font-size:14px;opacity:.95}
+.libro{background:linear-gradient(135deg,#E0166F,#6A3FE0)}
+.camino{background:linear-gradient(135deg,#9A5F00,#5E3A00)}
+.how{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin-top:24px}
+.how h2{font-size:16px;margin:0 0 6px}
+.how ol{margin:0;padding-left:20px;color:var(--muted)}
+.how li{margin:5px 0}
+.how b{color:var(--ink)}
+.foot{color:var(--muted);font-size:13px;margin:18px 0 0;text-align:center}
+</style>
+</head>
+<body>
+<main>
+  <h1>Mis Apps</h1>
+  <p class="sub">Toca una para abrirla.</p>
+
+  <a class="app libro" href="libro-aventuras/">
+    <img src="libro-aventuras/icon-192.png" alt="" width="68" height="68">
+    <div><b>Nuestro Libro de Aventuras</b><span>Salidas, fotos y recuerdos de los dos</span></div>
+  </a>
+
+  <a class="app camino" href="camino-biblico/">
+    <img src="camino-biblico/icon-192.png" alt="" width="68" height="68">
+    <div><b>Camino Bíblico</b><span>365 lecturas explicadas y tu avance</span></div>
+  </a>
+
+  <section class="how">
+    <h2>Para tenerlas como app en tu celular</h2>
+    <ol>
+      <li>Abre la app que quieras.</li>
+      <li>Android (Chrome): menú ⋮ → <b>Instalar app</b> (o <b>Agregar a la pantalla de inicio</b>).</li>
+      <li>iPhone (Safari): botón Compartir → <b>Agregar a pantalla de inicio</b>.</li>
+    </ol>
+  </section>
+
+  <p class="foot">Lo que escribes se guarda en tu celular, no en internet.</p>
+</main>
+</body>
+</html>
