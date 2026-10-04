@@ -296,6 +296,214 @@ canvas.conf{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-
 .steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:34px;height:34px;border-radius:50%;border:var(--bd);background:var(--s3);display:grid;place-items:center;font:800 1rem var(--f-display)}
 @media(max-width:560px){.bars .b{grid-template-columns:96px 1fr 58px}.hero h1{word-break:break-word}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* =====================================================================
+   PARTE 1. Piezas nuevas que existen en los dos temas (viajes, selector de tema, paletas).
+   ===================================================================== */
+.stat .si{display:none}
+.tripic{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;flex:none;background:var(--t2);border:var(--bd);box-shadow:var(--sh-s)}
+.tripic .ico{width:28px;height:28px}
+.thero{padding-bottom:clamp(20px,4vw,34px)}
+.thero h1{font-size:clamp(2rem,7vw,3.8rem)}
+.thero .sub{font-weight:700}
+.tstats{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.tstats .ts{display:grid;gap:2px;background:var(--paper);color:var(--ink);border:var(--bd);border-radius:16px;padding:8px 14px;box-shadow:var(--sh-s);text-shadow:none}
+.tstats .ts b{font:800 1.4rem var(--f-display);line-height:1}
+.tstats .ts span{font:700 .68rem var(--f-body);letter-spacing:.07em;text-transform:uppercase;color:var(--ink2)}
+.chip.plan.done{background:var(--t2)}
+.themes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+.thm{display:flex;gap:14px;align-items:center;text-align:left;border:var(--bd);border-radius:18px;background:var(--paper);padding:12px;box-shadow:var(--sh-s)}
+.thm[aria-pressed=true]{outline:3px solid var(--s3);outline-offset:2px}
+.thm .pv{width:66px;height:66px;border-radius:16px;flex:none;position:relative;overflow:hidden}
+.thm .tx b{display:block;font:800 1.05rem var(--f-display)}
+.thm .tx small{display:block;color:var(--muted);font-weight:600;line-height:1.25;margin-top:2px}
+.thm-claude .pv{background:#FFF4F9;border:2.5px solid #1E1A4D;box-shadow:0 3px 0 #1E1A4D}
+.thm-claude .pv i{position:absolute;left:8px;right:8px;top:10px;height:11px;border-radius:99px;background:#FF2E88;border:2px solid #1E1A4D}
+.thm-claude .pv b{position:absolute;left:8px;width:32px;bottom:9px;height:15px;border-radius:99px;background:#FFC02D;border:2px solid #1E1A4D;box-shadow:0 2px 0 #1E1A4D}
+.thm-aurora .pv{background:linear-gradient(135deg,#7B5CF6,#F2558F);box-shadow:0 12px 20px -12px rgba(123,92,246,.9)}
+.thm-aurora .pv i{position:absolute;left:8px;right:8px;top:11px;height:12px;border-radius:99px;background:rgba(255,255,255,.35)}
+.thm-aurora .pv b{position:absolute;left:8px;width:34px;bottom:9px;height:15px;border-radius:99px;background:#fff;box-shadow:0 3px 0 rgba(0,0,0,.2)}
+.chip.pal{padding:6px 12px 6px 8px}
+.sw{display:inline-flex;border-radius:7px;overflow:hidden;border:1px solid rgba(30,26,77,.3)}
+.sw i{width:13px;height:20px;display:block}
+html[data-route=edit] .tabbar{display:none}
+.search input[type=search]{padding-left:44px}
+@media(max-width:560px){html[data-theme=aurora] .stats .stat:last-child:nth-child(odd){grid-column:1/-1}}
+
+/* =====================================================================
+   PARTE 2. TEMA AURORA: moderno y suave. Vidrio, brillos, bordes finos y botones "caramelo".
+   Solo se activa con <html data-theme="aurora">. El tema Claude (styles.css) no cambia.
+   ===================================================================== */
+html[data-theme=aurora]{
+  --ink:#251C4F; --ink2:#4D4585; --muted:#77709F; --paper:#FFFFFF; --line:rgba(37,28,79,.11);
+  --r:26px; --r2:16px;
+  --bd:1px solid rgba(37,28,79,.11);
+  --sh:0 26px 50px -28px rgba(52,34,128,.42),0 3px 8px rgba(52,34,128,.06);
+  --sh-s:0 12px 24px -16px rgba(52,34,128,.45),0 1px 3px rgba(52,34,128,.07);
+}
+html[data-theme=aurora] body{background:var(--bg)}
+html[data-theme=aurora] body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(900px 520px at 6% -6%,var(--t1) 0,transparent 62%),radial-gradient(820px 560px at 100% 2%,var(--t4) 0,transparent 60%),radial-gradient(900px 620px at 72% 100%,var(--t2) 0,transparent 62%)}
+html[data-lite] *{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+html[data-lite][data-theme=aurora] .top,html[data-lite][data-theme=aurora] .tabbar,html[data-lite][data-theme=aurora] .savebar{background:rgba(255,255,255,.97)}
+html[data-theme=aurora] h1,html[data-theme=aurora] h2,html[data-theme=aurora] h3,html[data-theme=aurora] h4{font-weight:700;letter-spacing:-.028em}
+html[data-theme=aurora] :focus-visible{outline:3px solid var(--s4);outline-offset:2px;box-shadow:none}
+html[data-theme=aurora] .h-sec::before{content:"";width:7px;height:.95em;border-radius:6px;background:linear-gradient(180deg,var(--s1),var(--s4));flex:none}
+
+/* ---- barra superior e inferior ---- */
+html[data-theme=aurora] .top{background:rgba(255,255,255,.74);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border-bottom:1px solid var(--line)}
+html[data-theme=aurora] .brand .mark{background:linear-gradient(135deg,var(--s1),var(--s4));border:0;color:#fff;box-shadow:0 10px 18px -8px var(--a4);transform:none}
+html[data-theme=aurora] .brand small{letter-spacing:.16em}
+html[data-theme=aurora] .nav button{border:0;font-weight:600;color:var(--ink2)}
+html[data-theme=aurora] .nav button:hover{background:var(--u4)}
+html[data-theme=aurora] .nav button[aria-current=page]{background:linear-gradient(135deg,var(--s4),var(--s1));color:#fff;box-shadow:0 12px 20px -10px var(--a4)}
+html[data-theme=aurora] .tabbar{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));padding:6px 8px;border:1px solid var(--line);border-radius:30px;background:rgba(255,255,255,.84);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);box-shadow:var(--sh)}
+html[data-theme=aurora] .tabbar button{font-weight:700}
+html[data-theme=aurora] .tabbar button[aria-current=page]{color:var(--d4)}
+html[data-theme=aurora] .tabbar button[aria-current=page] .ico{background:var(--t4);border:0;border-radius:13px;padding:4px;width:34px;height:34px;color:var(--d4)}
+html[data-theme=aurora] .tabbar .fab{background:linear-gradient(135deg,var(--s1),var(--s4));border:0;color:#fff;box-shadow:0 16px 26px -10px var(--a4),0 0 0 6px rgba(255,255,255,.75);margin:-32px auto 2px}
+html[data-theme=aurora] .tabbar .fab:active{transform:scale(.95);box-shadow:0 8px 14px -8px var(--a4),0 0 0 6px rgba(255,255,255,.75)}
+html[data-theme=aurora] .toast{bottom:calc(104px + env(safe-area-inset-bottom,0px));background:rgba(37,28,79,.94);backdrop-filter:blur(10px);box-shadow:0 16px 30px -12px rgba(20,10,60,.65);font-weight:700}
+html[data-theme=aurora] .toast button{background:var(--s3);color:var(--on3)}
+
+/* ---- botones: caramelo con borde inferior ---- */
+html[data-theme=aurora] .btn{border:0;background:var(--paper);color:var(--ink);font-weight:700;box-shadow:inset 0 0 0 1px var(--line),0 3px 0 rgba(37,28,79,.12),0 14px 20px -14px rgba(52,34,128,.55)}
+html[data-theme=aurora] .btn:hover{transform:translateY(-1px);box-shadow:inset 0 0 0 1px var(--line),0 4px 0 rgba(37,28,79,.12),0 18px 24px -14px rgba(52,34,128,.6)}
+html[data-theme=aurora] .btn:active{transform:translateY(3px);box-shadow:inset 0 0 0 1px var(--line),0 0 0 rgba(0,0,0,0)}
+html[data-theme=aurora] .btn.p1{--bc:var(--s1);--bk:var(--d1);--bg2:var(--a1);--tx:var(--on1)}
+html[data-theme=aurora] .btn.p2{--bc:var(--s2);--bk:var(--d2);--bg2:var(--a2);--tx:var(--on2)}
+html[data-theme=aurora] .btn.p3{--bc:var(--s3);--bk:var(--d3);--bg2:var(--a3);--tx:var(--on3)}
+html[data-theme=aurora] .btn.p4{--bc:var(--s4);--bk:var(--d4);--bg2:var(--a4);--tx:var(--on4)}
+html[data-theme=aurora] .btn.p5{--bc:var(--s5);--bk:var(--d5);--bg2:var(--a5);--tx:var(--on5)}
+html[data-theme=aurora] .btn.p6{--bc:var(--s6);--bk:var(--d6);--bg2:var(--a6);--tx:var(--on6)}
+html[data-theme=aurora] .btn.p1,html[data-theme=aurora] .btn.p2,html[data-theme=aurora] .btn.p3,html[data-theme=aurora] .btn.p4,html[data-theme=aurora] .btn.p5,html[data-theme=aurora] .btn.p6{background:linear-gradient(180deg,rgba(255,255,255,.26),rgba(255,255,255,0) 58%),var(--bc);color:var(--tx);box-shadow:0 4px 0 var(--bk),0 16px 22px -14px var(--bg2)}
+html[data-theme=aurora] .btn.p1:hover,html[data-theme=aurora] .btn.p2:hover,html[data-theme=aurora] .btn.p3:hover,html[data-theme=aurora] .btn.p4:hover,html[data-theme=aurora] .btn.p5:hover,html[data-theme=aurora] .btn.p6:hover{box-shadow:0 5px 0 var(--bk),0 20px 26px -14px var(--bg2)}
+html[data-theme=aurora] .btn.p1:active,html[data-theme=aurora] .btn.p2:active,html[data-theme=aurora] .btn.p3:active,html[data-theme=aurora] .btn.p4:active,html[data-theme=aurora] .btn.p5:active,html[data-theme=aurora] .btn.p6:active{transform:translateY(4px);box-shadow:0 0 0 var(--bk),0 6px 10px -8px var(--bg2)}
+html[data-theme=aurora] .btn.ghost{background:none;box-shadow:none}
+html[data-theme=aurora] .btn.ghost:hover{background:var(--u4);box-shadow:none}
+html[data-theme=aurora] .btn.ghost:active{transform:none}
+
+/* ---- piezas ---- */
+html[data-theme=aurora] .chip{border:1px solid var(--line);font-weight:700;color:var(--ink2);box-shadow:0 1px 2px rgba(37,28,79,.05)}
+html[data-theme=aurora] button.chip:hover{background:var(--u4);border-color:var(--a4)}
+html[data-theme=aurora] .chip[aria-pressed=true],html[data-theme=aurora] .chip.on{background:linear-gradient(135deg,var(--s4),var(--s1));color:#fff;border-color:transparent;box-shadow:0 12px 18px -12px var(--a4)}
+html[data-theme=aurora] .chip.plan.done{background:var(--t2);color:var(--ink)}
+html[data-theme=aurora] .card{border:1px solid var(--line);box-shadow:var(--sh)}
+html[data-theme=aurora] .card.flat{box-shadow:none;background:rgba(255,255,255,.72)}
+html[data-theme=aurora] .lbl{letter-spacing:.14em}
+html[data-theme=aurora] .stk{border:0;transform:none;box-shadow:0 8px 14px -10px rgba(37,28,79,.5);letter-spacing:.05em}
+html[data-theme=aurora] .hearts{color:var(--s1)}
+html[data-theme=aurora] .hearts .off{color:#D9D4EE}
+html[data-theme=aurora] .hbtn.off{color:#D9D4EE}
+html[data-theme=aurora] .skel{background:linear-gradient(90deg,var(--u4),#fff,var(--u4));background-size:200% 100%}
+html[data-theme=aurora] .banner{border:1px solid var(--line);background:var(--u3);box-shadow:var(--sh-s)}
+html[data-theme=aurora] .tripic{border:0;background:linear-gradient(135deg,var(--t4),var(--t1));color:var(--d4);box-shadow:none}
+html[data-theme=aurora] .steps li::before{border:0;background:linear-gradient(135deg,var(--s4),var(--s1));color:#fff}
+html[data-theme=aurora] .thm[aria-pressed=true]{outline-color:var(--s4)}
+html[data-theme=aurora] .sw{border-color:rgba(37,28,79,.14)}
+
+/* ---- portada ---- */
+html[data-theme=aurora] .hero{border:0;border-radius:36px;box-shadow:0 44px 70px -42px var(--a4);background:radial-gradient(900px 420px at 100% 0,rgba(255,255,255,.26),transparent 60%),linear-gradient(135deg,var(--s4) 0%,var(--s1) 100%);padding-bottom:clamp(22px,5vw,40px)}
+html[data-theme=aurora] .hero::before{content:"";position:absolute;width:400px;height:400px;border-radius:50%;right:-120px;top:-170px;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.34),rgba(255,255,255,0) 66%);pointer-events:none}
+html[data-theme=aurora] .hero::after{content:"";position:absolute;width:340px;height:340px;border-radius:50%;left:-130px;bottom:-170px;background:radial-gradient(circle,var(--a3),rgba(255,255,255,0) 68%);pointer-events:none}
+html[data-theme=aurora] .hero .deco,html[data-theme=aurora] .hero .weave{display:none}
+html[data-theme=aurora] .hero h1{text-shadow:none;letter-spacing:-.04em;font-weight:800}
+html[data-theme=aurora] .hero h1 .amp{font-family:var(--f-display);font-style:italic;font-weight:600;color:var(--s3);padding:0 .08em}
+html[data-theme=aurora] .hero .kick{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.38);transform:none;box-shadow:none;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);letter-spacing:.1em}
+html[data-theme=aurora] .hero .sub{text-shadow:none;opacity:.96}
+html[data-theme=aurora] .hero .days{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.32);box-shadow:none;transform:none;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+html[data-theme=aurora] .hero .days span{color:rgba(255,255,255,.88)}
+html[data-theme=aurora] .tstats .ts{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.32);box-shadow:none;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+html[data-theme=aurora] .tstats .ts span{color:rgba(255,255,255,.88)}
+html[data-theme=aurora] .stat{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:var(--sh-s);padding:14px 16px}
+html[data-theme=aurora] .stat:nth-child(n){background:var(--paper)}
+html[data-theme=aurora] .stat .si{display:grid;place-items:center;width:34px;height:34px;border-radius:12px;margin-bottom:10px;background:var(--t4);color:var(--d4)}
+html[data-theme=aurora] .stat:nth-child(1) .si{background:var(--t1);color:var(--d1)}
+html[data-theme=aurora] .stat:nth-child(2) .si{background:var(--t2);color:var(--d2)}
+html[data-theme=aurora] .stat:nth-child(3) .si{background:var(--t3);color:var(--d3)}
+html[data-theme=aurora] .stat:nth-child(4) .si{background:var(--t4);color:var(--d4)}
+html[data-theme=aurora] .stat:nth-child(5) .si{background:var(--t5);color:var(--d5)}
+html[data-theme=aurora] .stat b{font-size:1.75rem;font-weight:700;letter-spacing:-.035em}
+html[data-theme=aurora] .stat span{color:var(--muted);letter-spacing:.06em}
+
+/* ---- tarjetas de aventura y lista ---- */
+html[data-theme=aurora] .acard{border:1px solid var(--line);border-radius:28px;box-shadow:var(--sh)}
+html[data-theme=aurora] a.acard:hover{transform:translateY(-4px);box-shadow:0 34px 54px -28px rgba(52,34,128,.55)}
+html[data-theme=aurora] .acard .ph{border-bottom:0}
+html[data-theme=aurora] .acard .ph::after{content:"";position:absolute;inset:auto 0 0 0;height:44%;background:linear-gradient(0deg,rgba(25,16,60,.42),transparent);pointer-events:none}
+html[data-theme=aurora] .acard .ph .stk,html[data-theme=aurora] .acard .ph .ret{z-index:1}
+html[data-theme=aurora] .acard .ph .ret{border:0;background:rgba(255,255,255,.92);box-shadow:0 8px 14px -10px rgba(0,0,0,.5)}
+html[data-theme=aurora] .acard .bd{padding:16px 18px 18px}
+html[data-theme=aurora] .acard h3{font-size:1.22rem}
+html[data-theme=aurora] .acard .meta{color:var(--muted)}
+html[data-theme=aurora] .tl::before{background:repeating-linear-gradient(var(--a4) 0 8px,transparent 8px 14px)}
+html[data-theme=aurora] .tl .mo::before{border:0;background:linear-gradient(135deg,var(--s4),var(--s1));box-shadow:0 0 0 5px var(--t4)}
+
+/* ---- formularios y editor ---- */
+html[data-theme=aurora] input[type=text],html[data-theme=aurora] input[type=tel],html[data-theme=aurora] input[type=url],html[data-theme=aurora] input[type=number],html[data-theme=aurora] input[type=date],html[data-theme=aurora] input[type=time],html[data-theme=aurora] input[type=search],html[data-theme=aurora] select,html[data-theme=aurora] textarea{border:1px solid rgba(37,28,79,.17);border-radius:16px;background-color:#fff;box-shadow:inset 0 1px 2px rgba(37,28,79,.05)}
+html[data-theme=aurora] input:focus,html[data-theme=aurora] select:focus,html[data-theme=aurora] textarea:focus{outline:0;border-color:var(--s4);box-shadow:0 0 0 4px var(--t4)}
+html[data-theme=aurora] .field>label,html[data-theme=aurora] .field>.lbl{color:var(--ink)}
+html[data-theme=aurora] .acc{border:1px solid var(--line);border-radius:26px;box-shadow:var(--sh-s)}
+html[data-theme=aurora] .acc>summary{background:var(--paper);padding:16px 18px}
+html[data-theme=aurora] .acc[open]>summary{background:linear-gradient(135deg,var(--u4),var(--u1))}
+html[data-theme=aurora] .acc>summary .n{border:0;background:linear-gradient(135deg,var(--s4),var(--s1));color:#fff;font-weight:700;box-shadow:0 8px 14px -8px var(--a4)}
+html[data-theme=aurora] .acc>div.in{border-top:1px solid var(--line)}
+html[data-theme=aurora] .ph-item{border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh-s)}
+html[data-theme=aurora] .ph-item input{border-top:1px solid var(--line);border-radius:0}
+html[data-theme=aurora] .addbox{border:2px dashed var(--a4);background:var(--u4);color:var(--d4)}
+html[data-theme=aurora] .dish{border:1px solid var(--line);background:var(--u4);border-radius:18px}
+html[data-theme=aurora] .who i{border:0;color:var(--on2)}
+html[data-theme=aurora] .who.b i{color:var(--on1)}
+html[data-theme=aurora] .seg{border:1px solid var(--line);box-shadow:var(--sh-s)}
+html[data-theme=aurora] .seg button{font-weight:700}
+html[data-theme=aurora] .seg button[aria-pressed=true]{background:linear-gradient(135deg,var(--s4),var(--s1));color:#fff}
+html[data-theme=aurora] .seg button+button{border-left:1px solid var(--line)}
+html[data-theme=aurora] .moods button{border:1px solid var(--line);border-radius:16px;background:#fff}
+html[data-theme=aurora] .moods button[aria-pressed=true]{background:var(--t4);box-shadow:0 0 0 2px var(--s4);transform:none}
+html[data-theme=aurora] .ratings .rw{border-bottom:1px dashed var(--line)}
+html[data-theme=aurora] .prog{border:0;background:var(--t4);height:12px}
+html[data-theme=aurora] .prog i{background:linear-gradient(90deg,var(--s4),var(--s1))}
+html[data-theme=aurora] .savebar{border-top:1px solid var(--line);background:rgba(255,255,255,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+
+/* ---- modo lectura ---- */
+html[data-theme=aurora] .reader{background:radial-gradient(1100px 700px at 88% -12%,var(--a4),transparent 60%),radial-gradient(900px 620px at -4% 104%,var(--a1),transparent 60%),#130F2E}
+html[data-theme=aurora] .reader .bar{background:rgba(19,15,46,.7)}
+html[data-theme=aurora] .pg.cover{background:#130F2E}
+html[data-theme=aurora] .ticket,html[data-theme=aurora] .dishc,html[data-theme=aurora] .voice{border:0;box-shadow:0 26px 40px -24px rgba(0,0,0,.65)}
+html[data-theme=aurora] .ticket::before,html[data-theme=aurora] .ticket::after{background:#130F2E}
+html[data-theme=aurora] .fact{border:0;box-shadow:0 14px 24px -16px rgba(0,0,0,.5)}
+html[data-theme=aurora] .voice .av{border:0;color:var(--on2)}
+html[data-theme=aurora] .voice.b .av{color:var(--on1)}
+html[data-theme=aurora] .note{box-shadow:0 16px 24px -16px rgba(0,0,0,.55)}
+html[data-theme=aurora] .pola{box-shadow:0 18px 30px -16px rgba(0,0,0,.6)}
+html[data-theme=aurora] .vbig{border:0;background:linear-gradient(135deg,var(--s4),var(--s1));color:#fff;box-shadow:0 30px 44px -26px var(--a1)}
+html[data-theme=aurora] .dots button[aria-current=true]{background:#fff;border-color:#fff}
+html[data-theme=aurora] .pg.cover h1{text-shadow:0 8px 28px rgba(0,0,0,.5)}
+html[data-theme=aurora] .pg .card,html[data-theme=aurora] .pg .card.flat{background:var(--paper);border:0}
+html[data-theme=aurora] .stat span{display:block;line-height:1.3}
+html[data-theme=aurora] .radar{filter:drop-shadow(0 12px 22px rgba(0,0,0,.35))}
+html[data-theme=aurora] .nav-arrows{background:linear-gradient(0deg,rgba(19,15,46,.95),rgba(19,15,46,0))}
+
+/* ---- varios ---- */
+html[data-theme=aurora] .modal-bg{background:rgba(24,16,58,.46);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+html[data-theme=aurora] .modal{border:0;border-radius:30px;box-shadow:0 44px 80px -34px rgba(20,10,60,.7)}
+html[data-theme=aurora] .bars .b i{border:0;height:16px;background:linear-gradient(90deg,var(--bc),var(--bc))}
+html[data-theme=aurora] .award{border:1px solid var(--line);border-radius:22px;box-shadow:var(--sh-s)}
+html[data-theme=aurora] .badge{border:1px solid var(--line);border-radius:22px;box-shadow:var(--sh-s)}
+html[data-theme=aurora] .badge .ci{border:0;box-shadow:0 10px 16px -10px rgba(37,28,79,.5)}
+html[data-theme=aurora] .idea{border:1px solid var(--line);border-radius:22px;box-shadow:var(--sh-s)}
+html[data-theme=aurora] .rt{border:1px solid var(--line);border-radius:18px}
+html[data-theme=aurora] .rt .ck{border:1.5px solid var(--a4);background:#fff}
+html[data-theme=aurora] .rt.done{background:var(--t2)}
+html[data-theme=aurora] .rt.done .ck{background:var(--s2);border-color:var(--s2);color:var(--on2)}
+html[data-theme=aurora] .wheel svg path{stroke:#fff;stroke-width:2}
+html[data-theme=aurora] .wheel svg circle{stroke:var(--line)}
+html[data-theme=aurora] .wheel .pt{border-top-color:var(--s4);filter:drop-shadow(0 4px 4px rgba(37,28,79,.3))}
+
+/* ---- movimiento suave al cambiar de pantalla ---- */
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+html[data-theme=aurora] main>.hero,html[data-theme=aurora] main>.sec,html[data-theme=aurora] main>.stats,html[data-theme=aurora] main>.card,html[data-theme=aurora] #editor>.edit-grid{animation:rise .45s both}
+html[data-theme=aurora] main>.stats{animation-delay:.05s}
+html[data-theme=aurora] main>.sec:nth-of-type(2){animation-delay:.08s}
 </style></head><body><div id="app"></div><script>/**
  * @license lucide v0.469.0 - ISC
  *
@@ -408,6 +616,7 @@ const TYPES = [
   { id: 'restaurante', label: 'Restaurante', icon: 'utensils', slot: 1 },
   { id: 'calle', label: 'Comida de calle', icon: 'flame', slot: 3 },
   { id: 'cafe', label: 'Café y postres', icon: 'coffee', slot: 6 },
+  { id: 'hotel', label: 'Hotel u hospedaje', icon: 'bed-double', slot: 4 },
   { id: 'viaje', label: 'Viaje', icon: 'luggage', slot: 2 },
   { id: 'playa', label: 'Playa o lago', icon: 'waves', slot: 5 },
   { id: 'naturaleza', label: 'Naturaleza', icon: 'mountain', slot: 2 },
@@ -443,12 +652,20 @@ const RETURN = [
   { v: 'no', l: 'No repetiríamos', icon: 'x' },
 ];
 
+/* Temas (el estilo de todo el libro) y paletas (los colores). Cada quien elige los suyos en Nosotros. */
+const THEMES = {
+  claude: { name: 'Claude', desc: 'Colorido y alegre, con bordes de tinta y stickers.' },
+  aurora: { name: 'Aurora', desc: 'Moderno y suave, con brillos, vidrio y mucho aire.' },
+};
 const PALS = {
+  violeta: { name: 'Violeta', c: ['#F2558F', '#14C2A3', '#FFC247', '#7B5CF6', '#3B9CFA', '#FF8B5E'] },
+  orquidea: { name: 'Orquídea', c: ['#E54D9E', '#43C6C0', '#F6C75E', '#9560E6', '#5C8DF2', '#F4807A'] },
   fiesta: { name: 'Fiesta', c: ['#FF2E88', '#00BFA6', '#FFC02D', '#7B4DFF', '#2EA8FF', '#FF6F59'] },
   oceano: { name: 'Océano', c: ['#0099E5', '#00C9B7', '#FFD23F', '#3B5BFF', '#7AE7C7', '#FF7A66'] },
   atardecer: { name: 'Atardecer', c: ['#FF5E5B', '#FF9F1C', '#FFD166', '#B5179E', '#7B2FF7', '#F72585'] },
   selva: { name: 'Selva', c: ['#1FAA59', '#FFC400', '#FF4F8B', '#00A6A6', '#8E44FF', '#FF7B2E'] },
 };
+const TRIP_TYPES = ['hotel', 'restaurante', 'calle', 'cafe', 'playa', 'naturaleza', 'cita', 'evento', 'otro'];
 
 /* Banco de ideas: t = nivel de gasto (0 gratis, 1 barato ~Q0-100, 2 medio ~Q100-300, 3 especial Q300+) */
 const IDEAS = [
@@ -605,12 +822,41 @@ function weaveUri(c) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="20" viewBox="0 0 96 20"><rect width="96" height="20" fill="${ink}"/>${d(0, c[0])}${d(16, c[2])}${d(32, c[1])}${d(48, c[3])}${d(64, c[4])}${d(80, c[5])}</svg>`;
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
 }
-function applyPalette(id) {
+const rgba = (h, a) => { const [r, g, b] = hex2rgb(h); return `rgba(${r},${g},${b},${a})`; };
+function lum(h) { const [r, g, b] = hex2rgb(h).map(v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; }
+const onColor = h => { const L = lum(h); return 1.05 / (L + 0.05) >= (L + 0.05) / 0.0667 ? '#FFFFFF' : '#251C4F'; };
+/* El tema (estilo) y la paleta (colores) que se ven: si nunca eligieron, se estrena Aurora. */
+function lookOf(c) {
+  c = c || cfg();
+  const theme = THEMES[c.theme] ? c.theme : 'aurora';
+  let pal = c.palette;
+  if (!c.theme && (!pal || pal === 'fiesta')) pal = 'violeta';
+  if (!PALS[pal]) pal = theme === 'aurora' ? 'violeta' : 'fiesta';
+  return { theme, pal };
+}
+function applyPalette(id, theme) {
   const p = PALS[id] || PALS.fiesta; const st = document.documentElement.style;
-  p.c.forEach((c, i) => { st.setProperty('--s' + (i + 1), c); st.setProperty('--t' + (i + 1), mix(c, '#ffffff', 0.82)); });
-  st.setProperty('--bg', mix(p.c[0], '#ffffff', 0.94));
+  p.c.forEach((c, i) => {
+    const n = i + 1;
+    st.setProperty('--s' + n, c);
+    st.setProperty('--t' + n, mix(c, '#ffffff', 0.82));
+    st.setProperty('--u' + n, mix(c, '#ffffff', 0.92));
+    st.setProperty('--d' + n, mix(c, '#1B1038', 0.4));
+    st.setProperty('--a' + n, rgba(c, 0.4));
+    st.setProperty('--on' + n, onColor(c));
+  });
+  const bg = theme === 'aurora' ? mix(p.c[3], '#ffffff', 0.955) : mix(p.c[0], '#ffffff', 0.94);
+  st.setProperty('--bg', bg);
   st.setProperty('--soft', mix(p.c[3], '#ffffff', 0.92));
   st.setProperty('--weave', `url("${weaveUri(p.c)}")`);
+  const tc = document.querySelector('meta[name=theme-color]'); if (tc) tc.setAttribute('content', bg);
+}
+/* Recuerda el tema y los colores guardados para pintarlos al instante al abrir (sin parpadeo del tema por defecto). */
+function rememberLook(c) { const lk = lookOf(c); store.set('libro-look', JSON.stringify({ theme: lk.theme, palette: lk.pal })); }
+function savedLook() { try { return JSON.parse(store.get('libro-look') || 'null') || undefined; } catch (e) { return undefined; } }
+function applyLook(c) {
+  const lk = lookOf(c), root = document.documentElement; root.setAttribute('data-theme', lk.theme); applyPalette(lk.pal, lk.theme);
+  if ((navigator.deviceMemory && navigator.deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2)) root.setAttribute('data-lite', '1');
 }
 const palColors = () => { const cs = getComputedStyle(document.documentElement); return [1, 2, 3, 4, 5, 6].map(i => cs.getPropertyValue('--s' + i).trim() || '#FF2E88'); };
 
@@ -637,7 +883,7 @@ const S = {
   route: { n: 'home', p: {} }, shown: null, reader: null,
   f: { q: '', type: '', ret: '', min: 0, view: 'cards', chapter: '', sort: 'new' },
 };
-const CFG0 = { names: { a: 'Anderson', b: 'Mi amor' }, since: '', palette: 'fiesta', title: 'Nuestro Libro de Aventuras', quote: 'Cada salida, una historia que vale la pena volver a vivir.' };
+const CFG0 = { names: { a: 'Anderson', b: 'Mi amor' }, since: '', palette: '', theme: '', title: 'Nuestro Libro de Aventuras', quote: 'Cada salida, una historia que vale la pena volver a vivir.' };
 const cfg = () => Object.assign({}, CFG0, S.cfg || {}, { names: Object.assign({}, CFG0.names, (S.cfg && S.cfg.names) || {}) });
 const nameOf = w => cfg().names[w] || (w === 'a' ? 'Él' : 'Ella');
 const isDemo = () => !S.cloud.db;
@@ -698,7 +944,7 @@ async function initCloud() {
   db.collection('capitulos').onSnapshot(s => { S.chapters = mapDocs(s); scheduleRender(); }, onErr('capitulos'));
   db.collection('deseos').onSnapshot(s => { S.wishes = mapDocs(s); scheduleRender(); }, onErr('deseos'));
   db.collection('retos').onSnapshot(s => { S.retos = mapDocs(s); scheduleRender(); }, onErr('retos'));
-  db.doc('config/main').onSnapshot(s => { S.cfg = s.exists ? s.data() : null; applyPalette(cfg().palette); scheduleRender(); }, onErr('config'));
+  db.doc('config/main').onSnapshot(s => { S.cfg = s.exists ? s.data() : null; applyLook(); if (S.cfg) rememberLook(); scheduleRender(); }, onErr('config'));
   if (S.me.id) db.doc('data/users/' + S.me.id + '/me').onSnapshot(s => { const d = s.exists ? s.data() : null; if (d && d.who) { S.me.who = d.who; store.set('libro-who', d.who); } scheduleRender(); }, onErr('me'));
 }
 
@@ -708,7 +954,8 @@ function scheduleRender() { if (_rq) return; _rq = requestAnimationFrame(() => {
 const VIEWS = {};
 function setNav() {
   const r = S.route.n;
-  $$('[data-nav]').forEach(b => { if (b.dataset.nav === r || (r === 'edit' && b.dataset.nav === 'list')) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+  $$('[data-nav]').forEach(b => { if (b.dataset.nav === r || (r === 'edit' && b.dataset.nav === 'list') || (r === 'trip' && b.dataset.nav === 'home')) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+  document.documentElement.setAttribute('data-route', r);
 }
 function renderRoute(force) {
   const v = VIEWS[S.route.n] || VIEWS.home; const main = $('#main'); if (!main) return;
@@ -719,7 +966,7 @@ function renderRoute(force) {
 }
 function go(n, p = {}, push = true) {
   closeAll();
-  S.prev = S.route.n;
+  S.prev = S.route.n; S.prevP = S.route.p;
   S.route = { n, p };
   if (push) { try { history.pushState({ n, p }, ''); } catch (e) { /* sin historial */ } }
   renderRoute(true); window.scrollTo(0, 0);
@@ -871,7 +1118,7 @@ function stats() {
 function badgeCtx() {
   const L = advList();
   const food = L.filter(a => ['restaurante', 'calle', 'cafe'].includes(a.type)).length;
-  const trips = L.filter(a => ['viaje', 'playa'].includes(a.type)).length;
+  const trips = Math.max(L.filter(a => ['viaje', 'playa'].includes(a.type)).length, Object.keys(S.chapters).length);
   const cheap = L.filter(a => num(a.cost && a.cost.total) > 0 && num(a.cost.total) <= 150 && advAvg(a.id) >= 4).length;
   const caps = L.filter(a => { const c = a.capsule || {}; return ['smell', 'sound', 'wore', 'said', 'joke', 'song'].every(k => (c[k] || '').trim()); }).length;
   const dual = L.filter(a => { const v = getV(a.id); return v.a && v.b; }).length;
@@ -906,7 +1153,7 @@ function acardHTML(a) {
       ${rs ? `<span class="ret">${retBadge(rs)}</span>` : ''}</div>
     <div class="bd"><h3>${esc(a.title || 'Sin título')}</h3>
       <div class="meta"><span>${ico('calendar')} ${esc(fmtDate(a.date))}</span>${a.place && a.place.name ? `<span>${ico('map-pin')} ${esc(a.place.name)}</span>` : ''}</div>
-      <div class="meta">${rate ? heartsRO(rate) : ''}${num(a.cost && a.cost.total) ? `<span>${ico('banknote')} ${money(a.cost.total)}</span>` : ''}${(a.photos || []).length ? `<span>${ico('image')} ${a.photos.length}</span>` : ''}${ch ? `<span>${ico('bookmark')} ${esc(ch.title)}</span>` : ''}</div>
+      <div class="meta">${rate ? heartsRO(rate) : ''}${num(a.cost && a.cost.total) ? `<span>${ico('banknote')} ${money(a.cost.total)}</span>` : ''}${(a.photos || []).length ? `<span>${ico('image')} ${a.photos.length}</span>` : ''}${ch ? `<span>${ico('luggage')} ${esc(ch.title)}</span>` : ''}</div>
     </div></a>`;
 }
 function secHead(title, right = '') {
@@ -961,7 +1208,7 @@ VIEWS.home = {
     const c = cfg(), st = stats(), L = advList().sort(byDateDesc), has = L.length > 0;
     const days = daysSince(c.since);
     const last = has ? L[0] : DEMO.adv; const cov = coverOf(last);
-    const chap = Object.values(S.chapters).sort((a, b) => String(a.title).localeCompare(String(b.title)));
+    const chap = tripList();
     return `${noticeBanner()}
     <section class="hero">
       <span class="deco" style="right:4%;top:5%;transform:rotate(14deg)">${starSvg('#FFC02D', 58)}</span>
@@ -985,14 +1232,16 @@ VIEWS.home = {
     </section>
     ${!S.cfg && canWrite() ? setupCard() : ''}
     <div class="stats">
-      <div class="stat"><b>${st.n}</b><span>Aventuras</span></div>
-      <div class="stat"><b>${st.places}</b><span>Lugares</span></div>
-      <div class="stat"><b>${money(st.spent)}</b><span>Gastados</span></div>
-      <div class="stat"><b>${st.photos}</b><span>Fotos</span></div>
-      <div class="stat"><b>${st.both}</b><span>Para repetir</span></div>
+      <div class="stat"><i class="si">${ico('book-open')}</i><b>${st.n}</b><span>Aventuras</span></div>
+      <div class="stat"><i class="si">${ico('map-pin')}</i><b>${st.places}</b><span>Lugares</span></div>
+      <div class="stat"><i class="si">${ico('wallet')}</i><b>${money(st.spent)}</b><span>Gastados</span></div>
+      <div class="stat"><i class="si">${ico('camera')}</i><b>${st.photos}</b><span>Fotos</span></div>
+      <div class="stat"><i class="si">${ico('heart')}</i><b>${st.both}</b><span>Para repetir</span></div>
     </div>
     ${memoryToday(L)}
-    ${chap.length ? `<section class="sec">${secHead('Capítulos')}<div class="chips">${chap.map(ch => `<button type="button" class="chip t${ch.slot || 3}" data-act="chap" data-id="${esc(ch.id)}">${ico('bookmark')} ${esc(ch.title)} · ${L.filter(a => a.chapterId === ch.id).length}</button>`).join('')}</div></section>` : ''}
+    <section class="sec">${secHead('Viajes', `<button type="button" class="btn sm p2" data-act="trip-new">${ico('plus')} Nuevo viaje</button>`)}
+      ${chap.length ? `<div class="chips">${chap.map(ch => `<button type="button" class="chip t${ch.slot || 3}" data-act="trip" data-id="${esc(ch.id)}">${ico('luggage')} ${esc(ch.title)} · ${tripStops(ch.id).length}</button>`).join('')}</div>`
+        : `<div class="card flat" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span class="tripic">${ico('luggage')}</span><p style="flex:1 1 240px">¿Salieron de viaje? Júntenlo en un solo lugar: hotel, restaurantes, cafés, paseos… Cada parada lleva sus propias fotos y reseñas.</p></div>`}</section>
     <section class="sec">${secHead('Últimas páginas', has ? `<button type="button" class="btn sm" data-act="go" data-to="list">Ver todas ${ico('arrow-right')}</button>` : '')}
       ${isLoading() ? skeletons(2) : has ? `<div class="grid g2">${L.slice(0, 6).map(acardHTML).join('')}</div>` : emptyBook()}</section>`;
   },
@@ -1063,6 +1312,106 @@ A.fclear = () => { S.f = Object.assign({}, S.f, { q: '', type: '', ret: '', min:
 I.q = el => { S.f.q = el.value; VIEWS.list.draw(); };
 I.sort = el => { S.f.sort = el.value; VIEWS.list.draw(); };
 
+/* ====== Viajes: un viaje junta varias paradas; cada parada es una página del libro con sus fotos y reseñas ====== */
+/* Por dentro un viaje es un "capítulo" (colección capitulos). Los viajes que ya existían siguen funcionando igual. */
+const tripList = () => Object.values(S.chapters).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0) || String(a.title).localeCompare(String(b.title)));
+const tripStops = id => advList().filter(a => a.chapterId === id).sort((a, b) => String(a.date || '').localeCompare(String(b.date || '')) || String(a.time || '').localeCompare(String(b.time || '')) || (a.createdAt || 0) - (b.createdAt || 0));
+function tripRange(L) {
+  const ds = L.map(a => a.date).filter(Boolean).sort(); if (!ds.length) return '';
+  const f = ds[0], l = ds[ds.length - 1];
+  return f === l ? fmtDate(f, true) : fmtDate(f) + '  →  ' + fmtDate(l);
+}
+const tripPlanChips = (sel, id, act) => `<div class="chips" id="${id}">${TRIP_TYPES.map(k => { const t = T(k); return `<button type="button" class="chip" data-act="${act}" data-v="${k}" aria-pressed="${sel.includes(k)}">${ico(t.icon)} ${esc(t.label)}</button>`; }).join('')}</div>`;
+
+VIEWS.trip = {
+  html() {
+    const id = S.route.p.id, ch = S.chapters[id];
+    if (!ch) return `${noticeBanner()}<div class="card empty"><h3 style="font-size:1.5rem">No encontré ese viaje</h3><button type="button" class="btn" data-act="go" data-to="home">${ico('arrow-left')} Volver al inicio</button></div>`;
+    const L = tripStops(id), plan = ch.plan || [];
+    const spent = L.reduce((s, a) => s + num(a.cost && a.cost.total), 0), photos = L.reduce((s, a) => s + (a.photos || []).length, 0);
+    const rates = L.map(a => advAvg(a.id)).filter(Boolean), rate = rates.length ? avg(rates) : 0;
+    const groups = []; L.forEach(a => { const k = a.date || ''; const g = groups[groups.length - 1]; if (g && g.k === k) g.l.push(a); else groups.push({ k, l: [a] }); });
+    const range = tripRange(L) || (ch.start ? fmtDate(ch.start, true) : 'Todavía sin paradas');
+    return `${noticeBanner()}
+    <button type="button" class="btn ghost sm" data-act="go" data-to="home">${ico('arrow-left')} Inicio</button>
+    <section class="hero thero" style="margin-top:8px">
+      <div class="row"><div style="flex:1 1 320px;min-width:0">
+        <span class="kick">${ico('luggage')} Viaje</span>
+        <h1 style="margin-top:14px">${esc(ch.title)}</h1>
+        <p class="sub" style="max-width:none">${esc(range)}</p>
+        <div class="tstats">
+          <div class="ts"><b>${L.length}</b><span>${L.length === 1 ? 'Parada' : 'Paradas'}</span></div>
+          ${spent ? `<div class="ts"><b>${money(spent)}</b><span>Gastados</span></div>` : ''}
+          <div class="ts"><b>${photos}</b><span>Fotos</span></div>
+          ${rate ? `<div class="ts"><b>${rate.toFixed(1)}</b><span>De 5 corazones</span></div>` : ''}
+        </div>
+        <div class="chips" style="margin-top:20px">
+          <button type="button" class="btn p3 lg" data-act="trip-add" data-id="${esc(id)}">${ico('plus')} Agregar parada</button>
+          <button type="button" class="btn lg" data-act="trip-edit" data-id="${esc(id)}">${ico('pencil')} Editar viaje</button>
+        </div>
+      </div></div>
+    </section>
+    ${plan.length ? `<section class="sec">${secHead('Paradas por escribir')}
+      <p class="muted" style="margin:-4px 0 12px">Toca una para escribir esa parada. Si hubo dos del mismo tipo (por ejemplo, dos restaurantes), tócala otra vez.</p>
+      <div class="chips">${plan.map(k => { const t = T(k), n = L.filter(a => a.type === k).length; return `<button type="button" class="chip plan ${n ? 'done' : ''}" data-act="trip-stop" data-id="${esc(id)}" data-type="${esc(k)}">${n ? ico('check') : ico('plus')} ${ico(t.icon)} ${esc(t.label)}${n > 1 ? ' · ' + n : ''}</button>`; }).join('')}</div></section>` : ''}
+    <section class="sec">${secHead('Las paradas')}
+      ${L.length ? `<div class="tl">${groups.map(g => `<div><div class="mo">${esc(g.k ? fmtDate(g.k, true) : 'Sin fecha')}</div><div class="grid g2" style="margin-top:12px">${g.l.map(acardHTML).join('')}</div></div>`).join('')}</div>`
+        : `<div class="card empty"><span class="tripic">${ico('map-pinned')}</span><h3 style="font-size:1.5rem">Aquí van a ir las paradas</h3><p class="muted" style="max-width:44ch">Cada parada es una página con sus fotos, su reseña, lo que probaron y lo que sintieron. Empiecen por la primera.</p><button type="button" class="btn p1 lg" data-act="trip-add" data-id="${esc(id)}">${ico('plus')} Escribir la primera parada</button></div>`}</section>`;
+  },
+};
+
+A.trip = el => go('trip', { id: el.dataset.id });
+function tripAdd(id, type, date) {
+  const ch = S.chapters[id]; if (!ch) return;
+  const last = tripStops(id).slice(-1)[0];
+  S.prefill = { d: Object.assign({ chapterId: id, date: date || (last && last.date) || ch.start || todayISO() }, type ? { type } : {}) };
+  A.new();
+}
+A['trip-add'] = el => tripAdd(el.dataset.id);
+A['trip-stop'] = el => tripAdd(el.dataset.id, el.dataset.type);
+A['trip-more'] = el => { const a = getAdv(S.reader && S.reader.id); closeAll(); tripAdd(el.dataset.id, '', a && a.date); };
+A['trip-open'] = el => go('trip', { id: el.dataset.id });
+A['plan-toggle'] = el => el.setAttribute('aria-pressed', String(el.getAttribute('aria-pressed') !== 'true'));
+
+A['trip-new'] = () => {
+  if (!canWrite()) { toast(S.cloud.db ? 'Pide que te inviten como editor/a para crear viajes.' : 'Abre el libro con tu cuenta de Claude para crear viajes.'); return; }
+  openModal(`<h3 style="font-size:1.6rem">Nuevo viaje</h3>
+    <p class="muted">Un viaje junta todas sus paradas: hotel, restaurantes, cafés, paseos… Cada parada tiene sus propias fotos y reseñas.</p>
+    <div class="field"><label for="tn-name">Nombre del viaje</label><input type="text" id="tn-name" placeholder="Fin de semana en Antigua" autocomplete="off" data-enter="#tn-ok"></div>
+    <div class="field"><label for="tn-start">¿Cuándo empieza?</label><input type="date" id="tn-start" value="${todayISO()}"></div>
+    <div class="field"><span class="lbl">¿Qué piensan incluir? (se puede cambiar después)</span>${tripPlanChips([], 'tn-plan', 'plan-toggle')}</div>
+    <div class="chips" style="justify-content:flex-end"><button type="button" class="btn" data-act="close">Cancelar</button><button type="button" class="btn p1" id="tn-ok" data-act="trip-create">${ico('check')} Crear viaje</button></div>`);
+};
+A['trip-create'] = async () => {
+  const name = ($('#tn-name').value || '').trim(); if (!name) { toast('Ponle un nombre al viaje.'); $('#tn-name').focus(); return; }
+  const plan = $$('#tn-plan [aria-pressed=true]').map(b => b.dataset.v);
+  const id = uid('c'), slot = 1 + (Object.keys(S.chapters).length % 6);
+  const doc = { title: name, slot, createdAt: Date.now(), start: $('#tn-start').value || '', plan };
+  if (await dbSet('capitulos/' + id, doc)) { S.chapters[id] = Object.assign({ id }, doc); go('trip', { id }); toast('Viaje creado. ¡A llenarlo de paradas!'); }
+};
+A['trip-edit'] = el => {
+  const ch = S.chapters[el.dataset.id]; if (!ch) return;
+  if (!canWrite()) { toast('Pide que te inviten como editor/a para cambiar el viaje.'); return; }
+  openModal(`<h3 style="font-size:1.6rem">Editar viaje</h3>
+    <div class="field"><label for="te-name">Nombre del viaje</label><input type="text" id="te-name" value="${esc(ch.title)}" autocomplete="off"></div>
+    <div class="field"><label for="te-start">Empezó el</label><input type="date" id="te-start" value="${esc(ch.start || '')}"></div>
+    <div class="field"><span class="lbl">Paradas que piensan incluir</span>${tripPlanChips(ch.plan || [], 'te-plan', 'plan-toggle')}</div>
+    <div class="chips" style="justify-content:space-between;align-items:center"><button type="button" class="btn ghost sm" style="color:#B3123F" data-act="trip-del" data-id="${esc(ch.id)}">${ico('trash-2')} Borrar viaje</button>
+      <span class="chips"><button type="button" class="btn" data-act="close">Cancelar</button><button type="button" class="btn p1" data-act="trip-save" data-id="${esc(ch.id)}">${ico('save')} Guardar</button></span></div>`);
+};
+A['trip-save'] = async el => {
+  const ch = S.chapters[el.dataset.id]; if (!ch) return;
+  const name = ($('#te-name').value || '').trim(); if (!name) { toast('El viaje necesita un nombre.'); return; }
+  const doc = Object.assign({}, ch, { title: name, start: $('#te-start').value || '', plan: $$('#te-plan [aria-pressed=true]').map(b => b.dataset.v) }); delete doc.id;
+  if (await dbSet('capitulos/' + ch.id, doc)) { S.chapters[ch.id] = Object.assign({ id: ch.id }, doc); closeModal(); renderRoute(true); toast('Viaje guardado'); }
+};
+A['trip-del'] = async el => {
+  const ch = S.chapters[el.dataset.id]; if (!ch) return;
+  if (!await confirmDialog('¿Borrar este viaje?', 'Las paradas NO se borran: solo dejan de estar agrupadas en este viaje.', 'Sí, borrar el viaje', true)) return;
+  for (const a of tripStops(ch.id)) { const d = Object.assign({}, S.adv[a.id], { chapterId: '' }); delete d.id; if (await dbSet('aventuras/' + a.id, d)) S.adv[a.id] = Object.assign({ id: a.id }, d); }
+  if (await dbDel('capitulos/' + ch.id)) { delete S.chapters[ch.id]; closeAll(); go('home'); toast('Viaje borrado'); }
+};
+
 /* ====== Modo lectura: el libro se vuelve una historia ====== */
 const WHO_COL = { a: 'var(--s2)', b: 'var(--s1)' };
 function radarSVG(id) {
@@ -1076,7 +1425,7 @@ function radarSVG(id) {
   const labels = cats.map((c, i) => { const [x, y] = pt(i, 6.15); const anchor = x < cx - 8 ? 'end' : x > cx + 8 ? 'start' : 'middle'; return `<text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="${anchor}" fill="#fff" font-size="12" font-weight="700" font-family="Nunito,sans-serif">${esc(c.short)}</text>`; }).join('');
   const axes = cats.map((c, i) => { const [x, y] = pt(i, 5); return `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,.22)"/>`; }).join('');
   const fa = 'style="fill:var(--s2);stroke:var(--s2)"', fb = 'style="fill:var(--s1);stroke:var(--s1)"';
-  return `<svg class="radar" viewBox="0 0 300 300" role="img" aria-label="Comparación de calificaciones">
+  return `<svg class="radar" viewBox="-44 0 388 300" role="img" aria-label="Comparación de calificaciones">
     ${[1, 2, 3, 4, 5].map(v => `<polygon points="${ring(v)}" fill="none" stroke="rgba(255,255,255,${v === 5 ? .4 : .18})"/>`).join('')}${axes}
     ${has('a') ? `<polygon points="${poly('a')}" ${fa} fill-opacity=".38" stroke-width="3" stroke-linejoin="round"/>` : ''}
     ${has('b') ? `<polygon points="${poly('b')}" ${fb} fill-opacity=".38" stroke-width="3" stroke-linejoin="round"/>` : ''}${labels}</svg>`;
@@ -1090,7 +1439,7 @@ function readerPages(a) {
   const photos = a.photos || [], cov = coverOf(a), pages = [];
   const people = num(cost.people) || 2; const meta = [];
   meta.push(`<span class="chip">${ico(t.icon)} ${esc(t.label)}</span>`);
-  if (a.chapterId && S.chapters[a.chapterId]) meta.push(`<span class="chip">${ico('bookmark')} ${esc(S.chapters[a.chapterId].title)}</span>`);
+  if (a.chapterId && S.chapters[a.chapterId]) meta.push(`<span class="chip">${ico('luggage')} ${esc(S.chapters[a.chapterId].title)}</span>`);
   if (a.weather && a.weather.emoji) meta.push(`<span class="chip">${esc(a.weather.emoji)} ${esc(a.weather.temp || '')}</span>`);
   if (ago(a.date)) meta.push(`<span class="chip">${ico('history')} ${esc(ago(a.date))}</span>`);
   pages.push({ k: 'Portada', cls: 'cover', html: `
@@ -1167,6 +1516,7 @@ function readerPages(a) {
     ${retFor ? `<div class="card flat" style="color:var(--ink);text-align:left;max-width:520px"><span class="lbl">Para la próxima vez</span>${retFor}</div>` : ''}
     ${a.notes ? `<div class="note" style="--rot:-1deg"><small>Lo que no queremos olvidar</small>${esc(a.notes)}</div>` : ''}
     <div class="actions">
+      ${a.chapterId && S.chapters[a.chapterId] ? `${canWrite() ? `<button type="button" class="btn p2" data-act="trip-more" data-id="${esc(a.chapterId)}">${ico('plus')} Otra parada de este viaje</button>` : ''}<button type="button" class="btn" data-act="trip-open" data-id="${esc(a.chapterId)}">${ico('luggage')} Ver el viaje</button>` : ''}
       ${mu ? `<a class="btn p3" href="${esc(mu)}" target="_blank" rel="noopener">${ico('navigation')} Ir otra vez</a>` : ''}
       ${S.cloud.sample ? `<button type="button" class="btn p5" data-act="chron" data-id="${esc(id)}">${ico('wand-sparkles')} ${a.chronicle ? 'Escribir otra crónica' : 'Escribir la crónica'}</button>` : ''}
       ${!a.demo && canWrite() ? `<button type="button" class="btn" data-act="edit" data-id="${esc(id)}">${ico('pencil')} Editar página</button>` : ''}
@@ -1337,7 +1687,7 @@ const secs = [
 const acc = (i, inner, open) => `<details class="acc" id="sec${i}" ${open ? 'open' : ''}><summary><span class="n">${i}</span><span>${secs[i - 1][1]}<br><small style="font:600 .8rem var(--f-body);color:var(--ink2)">${secs[i - 1][2]}</small></span>${ico('chevron-down', 'chev')}</summary><div class="in">${inner}</div></details>`;
 function chapOpts() {
   const L = Object.values(S.chapters).sort((a, b) => String(a.title).localeCompare(String(b.title)));
-  return `<option value="">Sin capítulo</option>${L.map(c => `<option value="${esc(c.id)}"${E.d.chapterId === c.id ? ' selected' : ''}>${esc(c.title)}</option>`).join('')}<option value="__new">＋ Crear un capítulo nuevo…</option>`;
+  return `<option value="">Ninguno (aventura suelta)</option>${L.map(c => `<option value="${esc(c.id)}"${E.d.chapterId === c.id ? ' selected' : ''}>${esc(c.title)}</option>`).join('')}<option value="__new">＋ Crear un viaje nuevo…</option>`;
 }
 function voiceHTML() {
   const w = E.who, x = E.v[w];
@@ -1415,9 +1765,9 @@ VIEWS.edit = {
       <div class="edit-grid"><div>
         ${acc(1, `
           ${fld('Título', `<input type="text" id="ed-title" data-inp="ed" data-p="title" value="${esc(d.title)}" placeholder="Ponle un título que suene a aventura" autocomplete="off">`)}
-          <div class="field"><span class="lbl">¿Qué fue?</span><div class="chips" id="ed-types">${TYPES.map(t => `<button type="button" class="chip" data-act="ed-set" data-p="type" data-v="${t.id}" data-sync="d" aria-pressed="${d.type === t.id}">${ico(t.icon)} ${esc(t.label)}</button>`).join('')}</div></div>
+          <div class="field"><span class="lbl">¿Qué fue?</span><div class="chips" id="ed-types">${TYPES.map(t => `<button type="button" class="chip" data-act="ed-set" data-p="type" data-v="${t.id}" data-sync="d" aria-pressed="${d.type === t.id}">${ico(t.icon)} ${esc(t.label)}</button>`).join('')}</div><small>Elige lo que mejor describe esta página. Si en el mismo viaje hubo varias cosas (hotel, restaurante, café…), haz una página por cada una y júntalas en un viaje.</small></div>
           <div class="fgrid">${fld('Fecha', inp('date', { type: 'date' }))}${fld('Hora (opcional)', inp('time', { type: 'time' }))}</div>
-          ${fld('Capítulo', `<select id="ed-chap" data-chg="ed" data-p="chapterId">${chapOpts()}</select><div id="ed-newch" hidden></div>`, 'Agrupa aventuras de un mismo viaje o temporada.')}
+          ${fld('¿Es una parada de un viaje?', `<select id="ed-chap" data-chg="ed" data-p="chapterId">${chapOpts()}</select><div id="ed-newch" hidden></div>`, 'Elige el viaje al que pertenece, o crea uno nuevo. Así todas las paradas quedan juntas.')}
           <div class="field"><span class="lbl">Etiquetas</span><div class="chips">${TAGS.map(t => `<button type="button" class="chip" data-act="ed-tag" data-v="${esc(t)}" data-sync="tag" aria-pressed="${(d.tags || []).includes(t)}">${esc(t)}</button>`).join('')}</div></div>`, true)}
         ${acc(2, `
           ${fld('Nombre del lugar', inp('place.name', { ph: 'Restaurante, mirador, parque, pueblo…' }))}
@@ -1493,7 +1843,7 @@ A['ed-dadd'] = () => { E.d.dishes.push({ id: uid('d'), name: '', price: '', note
 A['ed-ddel'] = el => { const [d] = E.d.dishes.splice(Number(el.dataset.i), 1); ['a', 'b'].forEach(w => { if (d && E.v[w].dishes) delete E.v[w].dishes[d.id]; }); edDishes(); touch(); };
 A['ed-cover'] = el => { E.d.cover = Number(el.dataset.i); edPhotos(); touch(); };
 A['ed-pdel'] = el => { const i = Number(el.dataset.i); E.d.photos.splice(i, 1); if (E.d.cover >= E.d.photos.length) E.d.cover = 0; else if (i < E.d.cover) E.d.cover--; edPhotos(); touch(); };
-A['ed-cancel'] = () => { E = null; S.prefill = null; go(S.prev && S.prev !== 'edit' ? S.prev : 'list'); };
+A['ed-cancel'] = () => { E = null; S.prefill = null; const pv = S.prev && S.prev !== 'edit' ? S.prev : 'list'; go(pv, pv === S.prev ? (S.prevP || {}) : {}); };
 A['ed-restore'] = () => { const dr = E.draft; if (!dr) return; E.d = merge(newDoc(), dr.d); E.v = { a: merge(blankVoice('a'), dr.v.a), b: merge(blankVoice('b'), dr.v.b) }; E.touched = dr.touched || { a: false, b: false }; E.draft = null; E.id = E.d.id; S.shown = null; renderRoute(true); toast('Borrador recuperado'); };
 A['ed-discard'] = () => { store.del(draftKey()); E.draft = null; const b = $('#ed-banner'); if (b) b.innerHTML = ''; };
 A['ed-del'] = async () => {
@@ -1503,7 +1853,7 @@ A['ed-del'] = async () => {
 };
 function edNewChapter() {
   const box = $('#ed-newch'); if (!box) return; box.hidden = false;
-  box.innerHTML = `<div style="display:grid;gap:8px"><input type="text" id="ed-chname" placeholder="Nombre del capítulo (por ejemplo: Verano en la playa)"><div class="chips"><button type="button" class="btn sm p2" data-act="ed-chok">Crear capítulo</button><button type="button" class="btn sm ghost" data-act="ed-chno">Cancelar</button></div></div>`;
+  box.innerHTML = `<div style="display:grid;gap:8px"><input type="text" id="ed-chname" placeholder="Nombre del viaje (por ejemplo: Fin de semana en Antigua)"><div class="chips"><button type="button" class="btn sm p2" data-act="ed-chok">Crear viaje</button><button type="button" class="btn sm ghost" data-act="ed-chno">Cancelar</button></div></div>`;
   $('#ed-chname').focus(); const s = $('#ed-chap'); if (s) s.value = '';
 }
 A['ed-chno'] = () => { const b = $('#ed-newch'); if (b) { b.hidden = true; b.innerHTML = ''; } };
@@ -1536,7 +1886,9 @@ A['ed-save'] = async () => {
   S.adv[doc.id] = doc; Object.keys(vs).forEach(w => { S.voices[doc.id + '__' + w] = vs[w]; }); rebuildVb();
   if (E.isNew && S.prefill && S.prefill.wish && S.wishes[S.prefill.wish]) { const w0 = Object.assign({}, S.wishes[S.prefill.wish], { done: doc.id }); delete w0.id; await dbSet('deseos/' + S.prefill.wish, w0); }
   store.del(draftKey()); S.prefill = null; const id = doc.id; E = null;
-  go('list'); openReader(id); toast('Página guardada');
+  const ch = d.chapterId && S.chapters[d.chapterId];
+  if (ch) go('trip', { id: ch.id }); else go('list');
+  openReader(id); toast('Página guardada');
 };
 function askWho() {
   const c = cfg();
@@ -1680,24 +2032,29 @@ A['ai-add'] = async el => { const x = W.ai[Number(el.dataset.i)]; if (!x) return
 /* ====== Nosotros: estadísticas, premios, ajustes y respaldo ====== */
 let CF = null;
 function palSwatches(cur) {
-  return `<div class="chips" role="group" aria-label="Paleta de colores">${Object.keys(PALS).map(k => `<button type="button" class="chip" data-act="cf-pal" data-v="${k}" aria-pressed="${cur === k}" style="padding:6px 12px 6px 8px"><span style="display:inline-flex">${PALS[k].c.slice(0, 5).map(c => `<i style="width:14px;height:22px;background:${c};border:1px solid #1E1A4D;margin-right:-1px;display:block"></i>`).join('')}</span> ${esc(PALS[k].name)}</button>`).join('')}</div>`;
+  return `<div class="chips" role="group" aria-label="Colores">${Object.keys(PALS).map(k => `<button type="button" class="chip pal" data-act="cf-pal" data-v="${k}" aria-pressed="${cur === k}"><span class="sw">${PALS[k].c.slice(0, 5).map(c => `<i style="background:${c}"></i>`).join('')}</span> ${esc(PALS[k].name)}</button>`).join('')}</div>`;
+}
+function themeCards(cur) {
+  return `<div class="themes" id="cf-themes" role="group" aria-label="Tema">${Object.keys(THEMES).map(k => `<button type="button" class="thm thm-${k}" data-act="cf-theme" data-v="${k}" aria-pressed="${cur === k}"><span class="pv"><i></i><b></b></span><span class="tx"><b>${esc(THEMES[k].name)}</b><small>${esc(THEMES[k].desc)}</small></span></button>`).join('')}</div>`;
 }
 function cfgFormHTML() {
-  CF = clone(cfg());
+  CF = clone(cfg()); const lk = lookOf(CF); CF.theme = lk.theme; CF.palette = lk.pal;
   const f = (lbl, p, ph, type = 'text') => `<div class="field"><label>${lbl}</label><input type="${type}" data-inp="cf" data-p="${p}" value="${esc(getP(CF, p))}" placeholder="${esc(ph || '')}" autocomplete="off"></div>`;
   return `<div class="fgrid">${f('Tu nombre', 'names.a', 'Anderson')}${f('Su nombre', 'names.b', 'Su nombre')}</div>
     <div class="fgrid">${f('Nombre del libro', 'title', 'Nuestro Libro de Aventuras')}${f('Fecha en que empezaron', 'since', '', 'date')}</div>
     ${f('Frase de portada', 'quote', 'Cada salida, una historia que vale la pena volver a vivir.')}
-    <div class="field"><label>Colores del libro</label>${palSwatches(CF.palette)}</div>
+    <div class="field"><label>Tema</label>${themeCards(CF.theme)}</div>
+    <div class="field"><label>Colores</label>${palSwatches(CF.palette)}</div>
     <div class="field"><label>¿Quién eres en este dispositivo?</label><div class="seg" id="cf-who">${['a', 'b'].map(k => `<button type="button" data-act="cf-who" data-v="${k}" aria-pressed="${myWho() === k}">${esc(nameOf(k))}</button>`).join('')}</div></div>`;
 }
 I.cf = el => { if (!CF) return; setP(CF, el.dataset.p, el.value); };
-A['cf-pal'] = el => { CF.palette = el.dataset.v; applyPalette(CF.palette); $$('[data-act=cf-pal]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === CF.palette))); };
+A['cf-pal'] = el => { CF.palette = el.dataset.v; applyLook(CF); $$('[data-act=cf-pal]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === CF.palette))); };
+A['cf-theme'] = el => { CF.theme = el.dataset.v; applyLook(CF); $$('#cf-themes button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === CF.theme))); };
 A['cf-who'] = async el => { await setWho(el.dataset.v); $$('#cf-who button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === el.dataset.v))); toast('Listo, ahora escribes como ' + nameOf(el.dataset.v)); };
 A['cf-save'] = async () => {
   if (!canWrite()) { toast('Pide que te inviten como editor/a para cambiar los ajustes.'); return; }
   const c = clone(CF); c.names.a = (c.names.a || '').trim() || CFG0.names.a; c.names.b = (c.names.b || '').trim() || CFG0.names.b;
-  if (await dbSet('config/main', c)) { S.cfg = c; applyPalette(c.palette); const m = $('#ov .modal-bg'); if (m) { m._onClose = null; m.remove(); } toast('Ajustes guardados'); renderRoute(true); }
+  if (await dbSet('config/main', c)) { S.cfg = c; applyLook(c); rememberLook(c); const m = $('#ov .modal-bg'); if (m) { m._onClose = null; m.remove(); } toast('Ajustes guardados'); renderRoute(true); }
 };
 A.setup = () => {
   const m = openModal(`<h3 style="font-size:1.6rem">Dale su toque al libro</h3><p class="muted">Pueden cambiarlo cuando quieran en la sección Nosotros.</p>${cfgFormHTML()}<div class="chips" style="justify-content:flex-end"><button type="button" class="btn" data-act="close">Después</button><button type="button" class="btn p1" data-act="cf-save">${ico('check')} Guardar</button></div>`);
@@ -1715,11 +2072,11 @@ function usData() {
   const priced = L.filter(a => num(a.cost && a.cost.total));
   const hrs = L.reduce((s, a) => s + num(a.mins), 0) / 60, avgSpend = priced.length ? st.spent / priced.length : 0;
   return `<div class="stats">
-      <div class="stat"><b>${days != null ? days.toLocaleString('es-GT') : '—'}</b><span>Días juntos</span></div>
-      <div class="stat"><b>${st.n}</b><span>Aventuras</span></div>
-      <div class="stat"><b>${Math.round(hrs)}</b><span>Horas de aventura</span></div>
-      <div class="stat"><b>${money(avgSpend)}</b><span>Gasto promedio</span></div>
-      <div class="stat"><b>${st.both}</b><span>Para repetir</span></div></div>
+      <div class="stat"><i class="si">${ico('calendar-heart')}</i><b>${days != null ? days.toLocaleString('es-GT') : '—'}</b><span>Días juntos</span></div>
+      <div class="stat"><i class="si">${ico('book-open')}</i><b>${st.n}</b><span>Aventuras</span></div>
+      <div class="stat"><i class="si">${ico('hourglass')}</i><b>${Math.round(hrs)}</b><span>Horas de aventura</span></div>
+      <div class="stat"><i class="si">${ico('wallet')}</i><b>${money(avgSpend)}</b><span>Gasto promedio</span></div>
+      <div class="stat"><i class="si">${ico('heart')}</i><b>${st.both}</b><span>Para repetir</span></div></div>
     ${L.length ? `<section class="sec">${secHead('Salón de la fama')}<div class="podium">${aw.map(x => `<a href="#" class="award" data-act="open" data-id="${esc(x.a.id)}" style="--ac:var(--t${x.slot})"><span class="t">${ico(x.icon)} ${esc(x.title)}</span><b>${esc(x.a.title)}</b><span style="font-weight:700">${esc(x.text)}</span></a>`).join('') || '<p class="muted">Califiquen sus aventuras con corazones para ver aquí a los ganadores.</p>'}</div></section>
     <section class="sec">${secHead('¿En qué se va el dinero?')}<div class="card"><div class="bars">${tkeys.map(k => { const t = T(k); return `<div class="b" style="--bc:var(--s${t.slot})"><span>${esc(t.label)}</span><i style="width:${Math.max(3, byType[k].sum / maxSum * 100)}%"></i><em>${money(byType[k].sum)}</em></div>`; }).join('')}</div></div></section>
     <section class="sec">${secHead('Aventuras por mes')}<div class="card"><div class="bars">${months.map(m => `<div class="b" style="--bc:var(--s2)"><span>${esc(m.l)}</span><i style="width:${m.n ? Math.max(3, m.n / maxN * 100) : 0}%;${m.n ? '' : 'border:0'}"></i><em>${m.n}</em></div>`).join('')}</div></div></section>` : ''}
@@ -1729,10 +2086,12 @@ function shareHTML() {
   if (window.STANDALONE) return `<section class="sec">${secHead('Escribir los dos, cada quien en su celular')}
     <div class="card"><ol class="steps">
       <li>Cada quien puede escribir aventuras en su propio celular. Lo que escriben se guarda en ese celular.</li>
-      <li>Para juntar los dos libros: uno toca <b>Todo con fotos (ZIP)</b> y se lo manda al otro por WhatsApp.</li>
-      <li>El otro toca <b>Elegir copia (ZIP)</b> en “Traer una copia”. Se mezcla sin borrar nada, y cada quien conserva su propia mirada.</li>
+      <li>Para juntar los dos libros: uno toca <b>Todo con fotos (ZIP)</b> (más abajo). El celular guarda el archivo <b>libro-con-fotos.zip</b> en Descargas.</li>
+      <li>Se lo manda al otro por WhatsApp: clip → Documento → Descargas → ese archivo.</li>
+      <li>El otro toca <b>Elegir copia (ZIP)</b> en “Traer una copia” y escoge el archivo. Se mezcla sin borrar nada, y cada quien conserva su propia mirada.</li>
       <li>Háganlo una vez al mes. Sirve también como copia de seguridad: guarden el ZIP en Google Drive o iCloud.</li></ol>
-      <p class="muted" style="margin-top:12px">En iPhone, abre el libro en Safari y usa Compartir → Agregar a pantalla de inicio. Así el teléfono no borra los datos por falta de uso.</p></div></section>`;
+      <p class="muted" style="margin-top:12px">¿Ella no quiere instalar nada? Abre una aventura, entra a la sección 6 “Nuestras miradas” y toca su nombre: escribe su mirada en este mismo celular.</p>
+      <p class="muted" style="margin-top:8px">En iPhone, abre el libro en Safari y usa Compartir → Agregar a pantalla de inicio. Así el teléfono no borra los datos por falta de uso.</p></div></section>`;
   return `<section class="sec">${secHead('Escribir los dos, en cualquier dispositivo')}
     <div class="card"><ol class="steps">
       <li><b>Abre el libro en claude.ai</b> y toca <b>Compartir</b>.</li>
@@ -1791,16 +2150,23 @@ I.impfile = async el => {
     for (const [col, arr, st] of [['capitulos', data.capitulos, S.chapters], ['deseos', data.deseos, S.wishes], ['retos', data.retos, S.retos]]) {
       for (const x of (arr || [])) if (x && x.id && !st[x.id]) { if (await dbSet(col + '/' + x.id, x)) st[x.id] = x; }
     }
-    if (data.config && !S.cfg) { if (await dbSet('config/main', data.config)) { S.cfg = data.config; applyPalette(cfg().palette); } }
+    if (data.config && !S.cfg) { if (await dbSet('config/main', data.config)) { S.cfg = data.config; applyLook(); } }
     say(nAdv ? 'Listo: se trajeron ' + nAdv + (nAdv === 1 ? ' aventura' : ' aventuras') + (nPhotos ? ' y ' + nPhotos + (nPhotos === 1 ? ' foto' : ' fotos') : '') + '.' : 'No había nada nuevo: ya tenían todo lo de esa copia.');
     toast(nAdv ? 'Copia traída' : 'Sin cambios');
   } catch (e) { console.warn('importar', e); say('No pude leer esa copia. ¿Es el ZIP que se guarda con “Todo con fotos”?'); }
 };
+const MANUAL_URL = 'https://andyabrego-2026.github.io/Mis-Apps/manual/';
+function manualHTML() {
+  return `<section class="sec">${secHead('Manual de uso')}
+    <div class="card" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span class="tripic">${ico('book-open-text')}</span>
+      <p style="flex:1 1 240px">¿Una duda? El manual explica cada pantalla paso a paso, con dibujos y ejemplos.</p>
+      <a class="btn p5" href="${window.STANDALONE ? '../manual/' : MANUAL_URL}" target="_blank" rel="noopener">${ico('external-link')} Abrir el manual</a></div></section>`;
+}
 VIEWS.us = {
   html() {
     return `${noticeBanner()}${secHead('Nosotros')}<div id="us-data">${usData()}</div>
       <section class="sec">${secHead('Ajustes del libro')}<div class="card" style="display:grid;gap:14px">${cfgFormHTML()}<div><button type="button" class="btn p1" data-act="cf-save">${ico('save')} Guardar ajustes</button></div></div></section>
-      ${shareHTML()}${backupHTML()}${importHTML()}`;
+      ${shareHTML()}${backupHTML()}${importHTML()}${manualHTML()}`;
   },
   mount() { meter(); },
   refresh() { const d = $('#us-data'); if (d) d.innerHTML = usData(); },
@@ -1850,7 +2216,7 @@ A.bkzip = async el => {
       <button type="button" data-act="go" data-to="wish" data-nav="wish">${ico('compass')}<span>Por vivir</span></button>
       <button type="button" data-act="go" data-to="us" data-nav="us">${ico('heart-handshake')}<span>Nosotros</span></button></nav>
     <div id="ov"></div>`;
-  applyPalette('fiesta');
+  applyLook(savedLook());
   S.route = { n: 'home', p: {} };
   try { history.replaceState({ n: 'home', p: {} }, ''); } catch (e) { /* sin historial */ }
   renderRoute(true);
